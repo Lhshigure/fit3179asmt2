@@ -1,0 +1,69 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data":{
+        "url":"day_wise.csv"
+    },
+    "vconcat":[
+        {
+            "width":500,
+            "height": 250,
+            "mark":"bar",
+            "encoding": {
+                "x":{
+                    "field":"Date",
+                    "type": "temporal",
+                    "timeUnit": "week",
+                    "axis": {
+                        "tickCount": 12
+                    }
+                },
+                "y":{
+                    "field":"New cases",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": " New Confirmed Case(million)",
+                        "format": "s",
+                        "tickCount": 5, "grid": false
+                    }
+                },
+                "color": {
+                    "value": "lightblue" 
+                },
+                "tooltip": [
+                    {"field": "Date", "type": "temporal"},
+                    {"field": "New cases", "type":"quantitative"}
+                ]
+            }
+        },{
+            "width":500,
+            "height": 250,
+            "mark":"bar",
+            "encoding": {
+                "x":{
+                    "field":"Date",
+                    "type": "temporal",
+                    "timeUnit": "week",
+                    "axis": {
+                        "tickCount": 12
+                    }
+                    },
+                "y":{
+                    "field":"New deaths",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": " New Deaths Case(thousand)",
+                        "format": "s",
+                        "tickCount": 5, "grid": false
+                    }
+                    },
+                "color": {
+                    "value": "#a63603" 
+                    },
+                "tooltip": [
+                    {"field": "Date", "type": "temporal"},
+                    {"field": "New deaths", "type":"quantitative"}
+                ] 
+                }
+        }
+    ]
+}

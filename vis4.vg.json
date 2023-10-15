@@ -1,0 +1,161 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "title": "COVID-19 Vaccinated and Deaths Cases per Country (2021)",
+    "data":{
+        "url": "COVID-19 Dataset.csv"
+    },
+    "transform": [
+        {"filter": "datum.Total_Deaths > 100"}, 
+        {"filter": "datum.People_Vaccinated > 100"},
+        {"filter": "Continent_selection == null || datum.Continent == Continent_selection"},
+        {"filter": "datum.Population > Population_Above"}
+    ],
+    "params":[
+        {
+            "name": "Continent_selection",
+            "bind": {
+                "input":"select",
+                "options":[
+                null,
+                "North America",
+                "South America",
+                "Europe",
+                "Africa",
+                "Asia",
+                "Oceania"
+                ],
+                "labels":[
+                    "Show All",
+                    "North America",
+                    "South America",
+                    "Europe",
+                    "Africa",
+                    "Asia",
+                    "Oceania"
+                ],
+                "name": "Continent Selection: "       
+            }
+        },
+        {
+            "name": "Population_Above",
+            "value": 0,
+            "bind": {
+                "input": "range",
+                "min": 0,
+                "max": 100000000,
+                "step": 1000000,
+                "name": "Minimum Population: "
+            }
+        }
+    ],
+    "encoding": {
+        "x":{
+            "field":"People_Vaccinated",
+            "type":"quantitative",
+            "title":"Vaccinated Cases",
+            "axis": {
+                "tickCount": 6,
+                "title": " Vaccinated Cases(million)",
+                "format": "s"
+            
+            },
+            "scale": {"type": "log", "domain": [100, 10000000000]}
+        },
+        "y":{
+            "field":"Total_Deaths",
+            "type":"quantitative",
+            "title":"Deaths Cases",
+            "axis": {
+                "tickCount": 5,
+                "title": " Deaths Cases(million)",
+                "format": "s"
+            
+            },
+            "scale": {"type": "log", "domain": [100, 10000000]}
+            
+        }
+    },
+    "layer":[
+        {
+            "mark":"circle",
+            "encoding": {
+                "color":{
+                    "field":"Continent",
+                    "type":"nominal",
+                    "scale":{
+                        "domain":[
+                            "North America",
+                            "South America",
+                            "Europe",
+                            "Africa",
+                            "Asia",
+                            "Oceania"
+                        ],
+                        "range":[
+                            "#1f77b4", 
+                            "#ff7f0e", 
+                            "#2ca02c", 
+                            "#9467bd", 
+                            "#8c564b", 
+                            "#17becf"  
+
+                        ]
+                    }
+                },
+                "opacity": {
+                    "value": 0.6
+                },
+                "size":{
+                    "field":"Total_Cases",
+                    "type":"quantitative",
+                    "scale":{
+                        "type":"threshold",
+                        "domain":[100000, 1000000, 5000000, 10000000, 50000000],
+                        "range":[10,50,150,200, 300, 400]
+                    },
+                    "legend":{"format": ".1s"}
+                },
+                "tooltip":[
+                    {"field": "Country", "type": "nominal"},
+                    {"field": "People_Vaccinated", "type": "quantitative", "format": ","},
+                    {"field": "Total_Deaths", "type": "quantitative", "format": ","},
+                    {"field": "Positive_rate", "type": "quantitative", "format": ","},
+                    {"field": "Population", "type": "quantitative", "format": ","}
+                ]           
+
+
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "baseline": "middle",
+                "dx": -12,
+                "fontSize": 11.5,
+                "fontStyle": "italic"
+                },
+                "encoding": {
+                    "text": {"field": "Country", "type": "nominal"},
+                    "color": {"value": "black"},
+                    "opacity":{
+                        "condition": {
+                            "test": "datum['Country'] == 'China' || datum['Country'] == 'Australia' || datum['Country'] =='New Zealand' || datum['Country'] == 'Italy' || datum['Country'] =='Yemen' || datum['Country'] == 'United States'",
+                            "value":1
+                        },
+                        "value": 0   
+                    },
+                    "tooltip":[
+                        {"field": "Country", "type": "nominal"},
+                        {"field": "People_Vaccinated", "type": "quantitative", "format": ","},
+                        {"field": "Total_Deaths", "type": "quantitative", "format": ","},
+                        {"field": "Positive_rate", "type": "quantitative", "format": ","},
+                        {"field": "Population", "type": "quantitative", "format": ","}
+                    ]   
+                }
+        }
+    ]
+    
+}

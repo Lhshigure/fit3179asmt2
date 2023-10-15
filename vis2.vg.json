@@ -1,0 +1,71 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+    "url":"day_wise.csv"
+    },
+    "vconcat": [
+        {
+            "width": 500,
+            "height": 250,
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "timeUnit": "week",
+                    "field": "Date",
+                    "type": "temporal",
+                    "axis": {
+                        "tickCount": 12
+                    }
+                    
+                },
+                "y": {
+                    "field": "Confirmed",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": " Total Confirmed Case(million)",
+                        "format": "s",
+                        "tickCount": 5, "grid": false
+                    }
+                },
+                "color": {
+                    "value": "lightblue" 
+                },
+                "tooltip": [
+                    {"field": "Date", "type": "temporal"},
+                    {"field": "Confirmed", "type":"quantitative"}
+                ]
+            }
+        },
+        {
+            "width": 500,
+            "height": 250,
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "timeUnit": "week",
+                    "field": "Date",
+                    "type": "temporal",
+                    "axis": {
+                        "tickCount": 12
+                    }
+                },
+                "y": {
+                    "field": "Deaths",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": " Total New Case(million)",
+                        "format": "s",
+                        "tickCount": 5, "grid": false
+                    }
+                },
+                "color": {
+                    "value": "#a63603" 
+                },
+                "tooltip": [
+                    {"field": "Date", "type": "temporal"},
+                    {"field": "Deaths", "type":"quantitative"}
+                ]
+            }
+        }
+    ]
+}

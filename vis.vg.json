@@ -1,0 +1,75 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title":"Covid 19 New Deaths(Jan to July 2020)",
+    "data":{
+        "url":"day_wise.csv"
+    },
+    "vconcat": [
+        {
+            "width": 500,
+            "height": 200,
+            "layer":[
+                {
+                    "mark": "area",
+                    "encoding": {
+                        "x": {
+                            "field": "Date", 
+                            "type": "temporal",
+                            "scale":{"domain":{"param": "brush"}},
+                            "axis":{"title": ""}
+                        },
+                        "y": {
+                            "field": "New deaths", "type": "quantitative",
+                            "axis": {
+                                "title": " New Deaths(thousands)",
+                                "format": "s",
+                                "tickCount": 3, "grid": false
+                            }
+                            
+                            
+                        },
+                        "tooltip": [
+                            {"field": "Date", "type": "temporal"},
+                            {"field": "New deaths", "type":"quantitative", "title":"New Deaths"}
+                        ]
+                    
+                    }
+                }
+            ]
+            
+        },
+        {
+            "width": 500,
+            "height": 100,
+            "layer":[
+                {   
+                    
+                        "mark": "area",
+                        "params": [
+                            {
+                        "name":"brush","select":{"type": "interval",
+                        "encodings": ["x"]}
+                            }
+                        ],
+                        "encoding": {
+                            "x": {"field": "Date", "type": "temporal"},
+                            "y": {
+                            "field": "New deaths", "type": "quantitative",
+                             "axis": {
+                                "title": " New Deaths(thousands)",
+                                "format": "s",
+                                "tickCount": 3, "grid": false
+                            }
+                            },
+                            "tooltip": [
+                                {"field": "Date", "type": "temporal"},
+                                {"field": "New deaths", "type":"quantitative", "title":"New Deaths"}
+                            ]
+                        }
+                    }
+                
+            ]
+        }
+        
+    ]
+}
